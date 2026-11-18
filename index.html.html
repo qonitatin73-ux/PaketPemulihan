@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Paket Pemulihan Saya</title>
+<style>
+:root{--bg:#f6f9f9;--card:#ffffff;--ink:#1b2a2f;--muted:#5f6b70;--brand:#0f4c5c;--accent:#e36414;--line:#d5e0e2;--ok:#2a9d8f;--soft:#e6f0f1;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12191c;--card:#1b2428;--ink:#e8eff0;--muted:#9fb0b4;--brand:#7cc4d4;--accent:#f4a261;--line:#2d3b40;--ok:#58c4b6;--soft:#223037;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#12191c;--card:#1b2428;--ink:#e8eff0;--muted:#9fb0b4;--brand:#7cc4d4;--accent:#f4a261;--line:#2d3b40;--ok:#58c4b6;--soft:#223037;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:760px;margin:0 auto;padding:16px}
+h1{font:700 26px/1.2 Georgia,"Times New Roman",serif;color:var(--brand);margin:8px 0}
+h2{font:700 18px/1.3 Georgia,serif;color:var(--brand);margin:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin:12px 0}
+.note{background:var(--soft);border-left:4px solid var(--accent);border-radius:8px;padding:10px 12px;margin:10px 0;font-size:14px}
+.muted{color:var(--muted);font-size:14px}
+label{display:block;font-weight:600;font-size:14px;margin:12px 0 4px}
+input[type=text],input[type=date],textarea,select{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit}
+textarea{min-height:76px;resize:vertical}
+input:focus,textarea:focus,select:focus,button:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.chk{display:flex;gap:8px;align-items:center;margin-top:12px}
+.chk input{width:20px;height:20px}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;margin:10px 0}
+summary{cursor:pointer;list-style:none;padding:12px 14px;display:flex;gap:10px;align-items:center;font-weight:700;color:var(--brand)}
+summary::-webkit-details-marker{display:none}
+.dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--line);flex:none}
+.done .dot{background:var(--ok);border-color:var(--ok)}
+.min{margin-left:auto;font-weight:400;color:var(--muted);font-size:13px}
+.body{padding:0 14px 14px}
+.bar{height:10px;background:var(--soft);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+button{font:inherit;font-weight:600;padding:10px 14px;border-radius:8px;border:1px solid var(--brand);background:var(--brand);color:var(--bg);cursor:pointer}
+button.ghost{background:transparent;color:var(--brand)}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+pre{white-space:pre-wrap;word-break:break-word;background:var(--soft);border-radius:8px;padding:12px;font:14px/1.5 ui-monospace,Menlo,Consolas,monospace;margin:8px 0}
+.priv{font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+<h1>Paket Pemulihan Saya</h1>
+<p class="muted">Bengkel Perkakas Stres · Psikologi Sosial · dasar: Branscombe &amp; Baron (2017), Bab 12</p>
+<div class="note"><strong>Privat.</strong> Isianmu hanya tersimpan di perangkat ini (di peramban). Dosen tidak dapat membacanya. Bila peramban memblokir penyimpanan, isianmu tetap bisa dipakai selama halaman terbuka; salin teksnya sebelum menutup halaman.</div>
+<div class="note"><strong>Aturan keamanan.</strong> Pilih stresor ringan (tingkat 4 dari 10 ke bawah). Jangan memakai pengalaman berat atau traumatis. Semua latihan sukarela. Ini edukasi, bukan terapi; bila stres berat atau berkepanjangan, temui konselor atau profesional.</div>
+<div class="card">
+<h2>Pembuka</h2>
+<label for="stresor">Stresor ringan yang kupilih hari ini</label>
+<input type="text" id="stresor" data-k="stresor" placeholder="mis. tugas kuliah yang menumpuk">
+</div>
+<div class="card"><strong id="prog">0 dari 8 latihan terisi</strong><div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0" id="bar"><i id="barfill"></i></div></div>
+<div id="lat"></div>
+<div class="card">
+<h2>Rencana Hari Sulit</h2>
+<p class="muted">Bila ketegangan di atas 6, aku akan melakukan tiga langkah ini. Pilih yang paling mudah, bukan yang paling ideal.</p>
+<label for="r1">Langkah 1</label><select id="r1" data-k="r1"></select>
+<label for="r2">Langkah 2</label><select id="r2" data-k="r2"></select>
+<label for="r3">Langkah 3</label><select id="r3" data-k="r3"></select>
+</div>
+<div class="card">
+<h2>Kartu Paket Pemulihan</h2>
+<p class="muted">Terbentuk otomatis dari isianmu. Salin ke catatan ponsel atau tangkap layar.</p>
+<pre id="kartu" aria-live="polite"></pre>
+<div class="row"><button id="salin">Salin teks</button><button id="hapus" class="ghost">Hapus semua isian</button></div>
+<p class="priv" id="msg" role="status"></p>
+</div>
+<p class="muted">Dasar penelitian dan sitasi lengkap ada di slide dan Panduan Dosen. Sebagian temuan berasal dari studi kecil atau laboratorium dan efeknya bervariasi.</p>
+</main>
+<script>
+var LAT=[
+{id:"l1",t:"Latihan 1 · Peta Dukungan dan Memberi",m:12,h:"Memberi dukungan berkaitan dengan risiko kematian yang lebih rendah pada lansia (Brown dkk., 2003). Pesan boleh langsung dikirim.",f:[["orang","Orang yang bisa kuhubungi saat stres","i"],["bantu","Orang yang bisa kubantu minggu ini","i"],["pesan","Pesan dukungan dua kalimat","t"]]},
+{id:"l2",t:"Latihan 2 · Grup yang Penting",m:8,h:"Banyak keanggotaan grup berkaitan dengan risiko depresi lebih rendah (dikutip buku). Belum punya grup? Tulis grup yang ingin kuikuti.",f:[["grup","Satu grup yang penting bagiku","i"],["terima","Yang kuterima dari grup ini","t"],["beri","Yang kuberikan kepada grup ini","t"],["langkah","Satu langkah agar lebih aktif","i"]]},
+{id:"l3",t:"Latihan 3 · Gerak Bersama",m:8,h:"Olahraga dalam grup lebih berhasil daripada sendirian (dikutip buku). Boleh peregangan duduk atau menjadi pemandu ritme.",f:[["gerak","Gerakan atau olahraga yang bisa kulakukan","i"],["dengan","Bersama siapa","i"]]},
+{id:"l4",t:"Latihan 4 · Tafsir Ulang Penolakan",m:12,h:"Percaya bahwa orang bisa berubah mengubah reaksi terhadap penolakan (Miu & Yeager, 2015). Ini bukan peluru perak dan bukan berpikir positif paksa.",f:[["tetap","Monolog versi tetap (opsional): “aku memang tidak disukai”","t"],["tumbuh","Monolog versi bisa tumbuh: “ini informasi”","t"],["pelajaran","Satu hal yang bisa kupelajari","i"],["langkah4","Satu langkah berikutnya","i"]]},
+{id:"l5",t:"Latihan 5 · Surat Maaf untuk Diri",m:8,h:"Memaafkan diri atas penundaan berkaitan dengan penundaan lebih sedikit (Wohl dkk., 2010). Pilih hal kecil saja.",f:[["hal","Kebiasaan atau kesalahan kecil yang kupilih","i"],["tanggung","Bagian yang menjadi tanggung jawabku","i"],["maaf","Pemaafan untuk diriku","t"],["perbaiki","Satu langkah memperbaiki","i"]]},
+{id:"l6",t:"Latihan 6 · Awal Baru",m:6,h:"Tanggal “awal baru” lebih sering membuat orang meminta pengingat (25,6% vs 7,2%; Dai dkk., 2015). Pasang pengingat sekarang.",f:[["tujuan","Tujuan kecilku","i"],["tanggal","Tanggal awal baru","d"],["pengingat","Pengingat sudah kupasang di ponsel","c"]]},
+{id:"l7",t:"Latihan 7 · Tiga Hal Baik dan Satu Kebaikan",m:8,h:"Menghitung berkat dan berbuat baik termasuk aktivitas yang meningkatkan kebahagiaan (dikutip buku). Yang sekecil apa pun boleh.",f:[["b1","Hal baik 1","i"],["b2","Hal baik 2","i"],["b3","Hal baik 3","i"],["baik","Kebaikan kecil untuk orang lain besok","i"]]},
+{id:"l8",t:"Latihan 8 · Hentikan Pengganggu",m:6,h:"Berhenti melakukan hal yang kontraproduktif adalah salah satu dari lima langkah bab.",f:[["ganggu","Kebiasaan yang akan kuhentikan","i"],["ganti","Kuganti dengan","i"]]}
+];
+var PLAN=[["","(pilih)"],["Hubungi orang dari Peta Dukunganku (L1)","Hubungi orang dari Peta Dukunganku"],["Ingat grup yang penting bagiku (L2)","Ingat grup yang penting bagiku"],["Gerak bersama 3 menit (L3)","Gerak bersama 3 menit"],["Baca tafsir ulangku (L4)","Baca tafsir ulangku"],["Baca surat maaf untuk diriku (L5)","Baca surat maaf untuk diriku"],["Mulai langkah kecil dari awal baru (L6)","Mulai langkah kecil dari awal baru"],["Tulis tiga hal baik (L7)","Tulis tiga hal baik"],["Hentikan pengganggu dan pakai penggantinya (L8)","Hentikan pengganggu dan pakai penggantinya"]];
+var KEY="paketPemulihanBab12", S={};
+function load(){try{var r=localStorage.getItem(KEY);if(r)S=JSON.parse(r)||{};}catch(e){S={};}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e;}
+function mk(f,id){var k=id+"_"+f[0],w=document.createElement("div"),l=el("label",null,f[1]);l.setAttribute("for",k);var c;
+ if(f[2]==="t"){c=el("textarea");}else if(f[2]==="d"){c=el("input");c.type="date";}else if(f[2]==="c"){var d=el("div","chk");c=el("input");c.type="checkbox";c.id=k;c.setAttribute("data-k",k);d.appendChild(c);d.appendChild(l);w.appendChild(d);return w;}else{c=el("input");c.type="text";}
+ c.id=k;c.setAttribute("data-k",k);w.appendChild(l);w.appendChild(c);return w;}
+function build(){var root=document.getElementById("lat");LAT.forEach(function(L,i){var d=el("details");d.id="d_"+L.id;var s=el("summary");s.appendChild(el("span","dot"));s.appendChild(el("span",null,L.t));s.appendChild(el("span","min",L.m+" menit"));d.appendChild(s);var b=el("div","body");b.appendChild(el("div","note",L.h));L.f.forEach(function(f){b.appendChild(mk(f,L.id));});d.appendChild(b);root.appendChild(d);});
+ ["r1","r2","r3"].forEach(function(id){var s=document.getElementById(id);PLAN.forEach(function(p){var o=el("option",null,p[1]);o.value=p[0];s.appendChild(o);});});}
+function fill(){document.querySelectorAll("[data-k]").forEach(function(e){var v=S[e.getAttribute("data-k")];if(e.type==="checkbox"){e.checked=!!v;}else if(v!==undefined){e.value=v;}});}
+function bind(){document.querySelectorAll("[data-k]").forEach(function(e){var h=function(){S[e.getAttribute("data-k")]=(e.type==="checkbox")?e.checked:e.value;save();refresh();};e.addEventListener("input",h);e.addEventListener("change",h);});}
+function val(k){var v=S[k];return (v===undefined||v===false||v==="")?"—":(v===true?"ya":v);}
+function refresh(){var n=0;LAT.forEach(function(L){var any=L.f.some(function(f){var v=S[L.id+"_"+f[0]];return v&&v!==false;});var d=document.getElementById("d_"+L.id);d.className=any?"done":"";if(any)n++;});
+ document.getElementById("prog").textContent=n+" dari 8 latihan terisi";document.getElementById("barfill").style.width=(n*12.5)+"%";document.getElementById("bar").setAttribute("aria-valuenow",n);
+ var t="PAKET PEMULIHAN SAYA\nStresor ringan: "+val("stresor")+"\n\n";
+ t+="1. Orang yang kuhubungi: "+val("l1_orang")+"\n   Orang yang kubantu: "+val("l1_bantu")+"\n   Pesan: "+val("l1_pesan")+"\n";
+ t+="2. Grup: "+val("l2_grup")+"\n   Kuterima: "+val("l2_terima")+"\n   Kuberikan: "+val("l2_beri")+"\n   Langkah: "+val("l2_langkah")+"\n";
+ t+="3. Gerak bersama: "+val("l3_gerak")+" bersama "+val("l3_dengan")+"\n";
+ t+="4. Tafsir ulang: "+val("l4_tumbuh")+"\n   Kupelajari: "+val("l4_pelajaran")+"\n   Langkah: "+val("l4_langkah4")+"\n";
+ t+="5. Maaf untuk diri: "+val("l5_maaf")+"\n   Soal: "+val("l5_hal")+"\n   Langkah memperbaiki: "+val("l5_perbaiki")+"\n";
+ t+="6. Awal baru: "+val("l6_tujuan")+" pada "+val("l6_tanggal")+" (pengingat: "+val("l6_pengingat")+")\n";
+ t+="7. Hal baik: "+val("l7_b1")+"; "+val("l7_b2")+"; "+val("l7_b3")+"\n   Kebaikan besok: "+val("l7_baik")+"\n";
+ t+="8. Berhenti: "+val("l8_ganggu")+" → ganti: "+val("l8_ganti")+"\n\n";
+ t+="RENCANA HARI SULIT (bila ketegangan di atas 6)\n1) "+val("r1")+"\n2) "+val("r2")+"\n3) "+val("r3")+"\n\nCatatan: ini edukasi, bukan terapi. Bila stres berat atau berkepanjangan, temui konselor atau profesional.";
+ document.getElementById("kartu").textContent=t;}
+function msg(t){var m=document.getElementById("msg");m.textContent=t;setTimeout(function(){m.textContent="";},4000);}
+function copy(){var t=document.getElementById("kartu").textContent;
+ function fb(){var ta=document.createElement("textarea");ta.value=t;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();var ok=false;try{ok=document.execCommand("copy");}catch(e){}document.body.removeChild(ta);msg(ok?"Teks disalin.":"Tidak bisa menyalin otomatis. Tekan lama pada kartu lalu pilih salin, atau tangkap layar.");}
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){msg("Teks disalin.");},fb);}else{fb();}}
+var armed=false,tmr=null;
+function wipe(){var b=document.getElementById("hapus");if(!armed){armed=true;b.textContent="Yakin? Klik lagi untuk menghapus";tmr=setTimeout(function(){armed=false;b.textContent="Hapus semua isian";},4000);return;}
+ clearTimeout(tmr);armed=false;b.textContent="Hapus semua isian";S={};try{localStorage.removeItem(KEY);}catch(e){}
+ document.querySelectorAll("[data-k]").forEach(function(e){if(e.type==="checkbox")e.checked=false;else e.value="";});refresh();msg("Semua isian dihapus.");}
+load();build();fill();bind();refresh();
+document.getElementById("salin").addEventListener("click",copy);document.getElementById("hapus").addEventListener("click",wipe);
+</script>
+</body>
+</html>
